@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from 'styled-components';
-import { useNavigation } from '@react-navigation/core';
+import { useNavigation } from "@react-navigation/native";
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
@@ -18,7 +18,7 @@ import { BackButton } from '../../components/BackButton';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { PasswordInput } from '../../components/PasswordInput';
-import { useAuth } from '../../hooks/auth';
+// import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -37,12 +37,12 @@ import {
 } from './styles';
 
 export function Profile() {
-  const { user, signOut } = useAuth();
+  // const { user, signOut } = useAuth();
 
   const [option, setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit');
-  const [avatar, setAvatar] = useState(user.avatar);
-  const [name, setName] = useState(user.name);
-  const [driverLicense, setDriverLicense] = useState(user.driver_license);
+  // const [avatar, setAvatar] = useState(user.avatar);
+  // const [name, setName] = useState(user.name);
+  // const [driverLicense, setDriverLicense] = useState(user.driver_license);
 
   const theme = useTheme();
   const navigation = useNavigation();
@@ -64,46 +64,46 @@ export function Profile() {
     });
 
     if(result.cancelled) return;
-    if(result.uri) setAvatar(result.uri);
+    // if(result.uri) setAvatar(result.uri);
   }
 
   async function handleProfileUpdate() {
-    try {
-      const schema = Yup.object().shape({
-        driverLicense: Yup.string()
-        .required('CNH é obrigatorio!'),
-        name: Yup.string()
-        .required('Nome é obrigatorio!'),
-      });
+    // try {
+    //   const schema = Yup.object().shape({
+    //     driverLicense: Yup.string()
+    //     .required('CNH é obrigatorio!'),
+    //     name: Yup.string()
+    //     .required('Nome é obrigatorio!'),
+    //   });
 
-      const data = { name, driverLicense };
-      await schema.validate(data);
+    //   // const data = { name, driverLicense };
+    //   await schema.validate(data);
 
-      await api.put('/users', {
-        name,
-        email: user.email,
-        driver_license: driverLicense,
-        avatar
-      })
-      .then(() => {
-        navigation.navigate('Confirmation', {
-          nextScreenRoute: 'Home',
-          title: 'Conta Atualizada',
-          message: `Agora é só Aproveitar`
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-        Alert.alert('Opa', 'Não foi possivel atualizar conta');
-      });
+    //   await api.put('/users', {
+    //     name,
+    //     email: user.email,
+    //     driver_license: driverLicense,
+    //     avatar
+    //   })
+    //   .then(() => {
+    //     navigation.navigate('Confirmation', {
+    //       nextScreenRoute: 'Home',
+    //       title: 'Conta Atualizada',
+    //       message: `Agora é só Aproveitar`
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     Alert.alert('Opa', 'Não foi possivel atualizar conta');
+    //   });
 
-    } catch (error) {
-      if(error instanceof Yup.ValidationError) {
-        Alert.alert("Opa" , error.message);
-      } else {
-        Alert.alert("Não foi possível atualizar o perfil");
-      }
-    }
+    // } catch (error) {
+    //   if(error instanceof Yup.ValidationError) {
+    //     Alert.alert("Opa" , error.message);
+    //   } else {
+    //     Alert.alert("Não foi possível atualizar o perfil");
+    //   }
+    // }
   }
 
   function handleSignOut() {
@@ -118,7 +118,7 @@ export function Profile() {
         },
         {
           text: "Sair",
-          onPress: () => signOut()
+          // onPress: () => signOut()
         }
       ]
     );
@@ -129,11 +129,6 @@ export function Profile() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
           <Header>
-            <StatusBar
-              barStyle='light-content'
-              translucent
-              backgroundColor='transparent'
-            />
             <HeaderTop>
               <BackButton
                 color={theme.colors.shape}
@@ -149,7 +144,7 @@ export function Profile() {
             </HeaderTop>
 
             <PhotoContainer>
-              { !!avatar && <Photo source={{ uri: avatar }} /> }
+              {/* { !!avatar && <Photo source={{ uri: avatar }} /> } */}
               <PhotoButton onPress={handleAvatarSelect}>
                 <Feather
                   name="camera"
@@ -182,21 +177,21 @@ export function Profile() {
                   iconName='user'
                   placeholder='Nome'
                   autoCorrect={false}
-                  defaultValue={user.name}
-                  onChangeText={setName}
+                  // defaultValue={user.name}
+                  // onChangeText={setName}
                 />
                 <Input
                   iconName='mail'
                   editable={false}
-                  defaultValue={user.email}
+                  // defaultValue={user.email}
                 />
                 <Input
                   iconName='credit-card'
                   placeholder='CNH'
                   autoCorrect={false}
                   keyboardType="numeric"
-                  defaultValue={user.driver_license}
-                  onChangeText={setDriverLicense}
+                  // defaultValue={user.driver_license}
+                  // onChangeText={setDriverLicense}
                 />
               </Section>
               :

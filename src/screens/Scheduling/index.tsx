@@ -78,7 +78,9 @@ export function Scheduling() {
 
         const firstDate = Object.keys(interval)[0];     
         const endDate = Object.keys(interval)[Object.keys(interval).length - 1];
-        
+        console.log(firstDate)
+        console.log(endDate)
+        console.log("")
         setRentalPeriod({
             startFormatted: format(getPlatformDate(new Date(firstDate)), 'dd/MM/yyyy'),
             endFormatted: format(getPlatformDate(new Date(endDate)), 'dd/MM/yyyy'),
@@ -88,11 +90,6 @@ export function Scheduling() {
     return (
         <Container >
             <Header>
-                <StatusBar 
-                    barStyle='light-content'
-                    translucent
-                    backgroundColor='transparent'
-                />
                 <BackButton 
                     onPress={handleBack}
                     color={theme.colors.shape} />

@@ -17,20 +17,19 @@ export function AppTabRoutes() {
   const theme = useTheme();
   return (
     <Navigator 
-      tabBarOptions={{
-        activeTintColor: theme.colors.main,
-        inactiveTintColor: theme.colors.text_detail,
-        showLabel: false,
-        style: {
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: theme.colors.main,
+        tabBarInactiveTintColor: theme.colors.text_detail,
+        tabBarStyle: {
           paddingVertical: Platform.OS === 'ios' ? 20 : 0,
           height: 78,
           backgroundColor: theme.colors.background_primary
-          
         }
       }}
     >
       <Screen
-        name='Home'
+        name='Initial'
         component={AppStackRoutes}
         options={{
           tabBarIcon: ({ color }) => (

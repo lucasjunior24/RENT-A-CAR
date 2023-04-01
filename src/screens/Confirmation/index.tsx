@@ -29,18 +29,17 @@ export function Confirmation() {
   const navigation = useNavigation();
 
   const { title, message, nextScreenRoute } = route.params as Params;
+  console.log(title)
+  console.log(message)
+
+  console.log(nextScreenRoute)
 
   function handleConfirm() {
-    // navigation.navigate(nextScreenRoute)
+    navigation.navigate(nextScreenRoute)
   }
 
   return (
     <Container>
-      <StatusBar
-        barStyle='light-content'
-        translucent
-        backgroundColor='transparent'
-      />
       <LogoSvg width={width} />
 
       <Content>

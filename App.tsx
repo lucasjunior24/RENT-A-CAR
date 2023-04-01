@@ -19,6 +19,8 @@ import {
 } from '@expo-google-fonts/archivo';
 
 import theme from './src/styles/theme';
+import { Routes } from './src/routes/index';
+import { Profile } from './src/screens/Profile/index';
 import { MyStack } from './routes';
 import {Home} from './src/screens/Home';
 import { AppStackRoutes} from './src/routes/app.stack.routes';
@@ -43,7 +45,7 @@ export default function App() {
           translucent
         />
        <NavigationContainer>
-        <AppStackRoutes />
+        <Routes />
       </NavigationContainer>
     </ThemeProvider>
 

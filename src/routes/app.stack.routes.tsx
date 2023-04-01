@@ -1,11 +1,13 @@
 
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
+
+import { CarDTO } from '../dtos/CarDTO';
 
 import { Home } from '../screens/Home';
 import { CarDetails } from '../screens/CarDetails';
-// import { Scheduling } from '../screens/Scheduling';
-// import { SchedulingDetails } from '../screens/SchedulingDetails';
+import { Scheduling } from '../screens/Scheduling';
+import { SchedulingDetails } from '../screens/SchedulingDetails';
 import { SignUpSecondStep } from '../screens/SignUp/SignUpSecondStep';
 import { Confirmation } from '../screens/Confirmation';
 import { MyCars } from '../screens/MyCars';
@@ -24,13 +26,17 @@ export function AppStackRoutes() {
         component={CarDetails}
       />
       <Screen
+        name='Scheduling'
+        component={Scheduling}
+      />
+      <Screen
         name='SignUpSecondStep'
         component={SignUpSecondStep}
       />
-      {/* <Screen
+      <Screen
         name='SchedulingDetails'
         component={SchedulingDetails}
-      /> */}
+      />
       <Screen
         name='Confirmation'
         component={Confirmation}
@@ -52,4 +58,4 @@ export function AppStackRoutes() {
 //   SignUpSecondStep : undefined;
 // };
 
-// export type PropsStack = NativeStackScreenProps<RootStackParamList>
+// export type PropsStack = NativeStackScreenProps<RootStackParamList, "CarDetails">

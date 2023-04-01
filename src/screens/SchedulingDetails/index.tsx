@@ -62,7 +62,7 @@ export function SchedulingDetails() {
   const route = useRoute();
   const { car, dates } = route.params as Params;
 
-  const rentalTotal = Number(dates.length * car.price);
+  const rentalTotal = Number(dates.length * car.rent.price);
 
   function handleBack() {
     navigation.goBack();
@@ -73,16 +73,16 @@ export function SchedulingDetails() {
 
     api.post(`/rentals`, {
       user_id: 1,
-      car_id: car.id,
+      car: car,
       start_date: new Date(dates[0]),
       end_date: new Date(dates[dates.length - 1]),
       total: rentalTotal
     })
       .then(() => {
         navigation.navigate('Confirmation', {
-          nextScreenRoute: 'Home',
           title: 'Carro Alugado',
-          message: `Agora voce so precisa ir\naté a concessionaria da RENTX\npegar seu automovel`
+          message: `Agora voce so precisa ir\naté a concessionaria da RENTX\npegar seu automovel`,
+          nextScreenRoute: 'Home'
         })
       })
       .catch(() => {
@@ -118,8 +118,8 @@ export function SchedulingDetails() {
           </Description>
 
           <Rent>
-            <Period>{car.period}</Period>
-            <Price>R$ {car.price}</Price>
+            <Period>{car.rent.period}</Period>
+            <Price>R$ {car.rent.price}</Price>
           </Rent>
         </Details>
 
@@ -163,7 +163,7 @@ export function SchedulingDetails() {
         <RentalPrice>
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
           <RentalPriceDetails>
-            <RentalPriceQuota>{`RS ${car.price}x${dates.length} diárias`}</RentalPriceQuota>
+            <RentalPriceQuota>{`RS ${car.rent.price}x${dates.length} diárias`}</RentalPriceQuota>
             <RentalPriceTotal>RS {rentalTotal}</RentalPriceTotal>
           </RentalPriceDetails>
         </RentalPrice>

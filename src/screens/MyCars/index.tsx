@@ -72,11 +72,11 @@ export function MyCars() {
     return (
         <Container>
             <Header>
-                <StatusBar
+                {/* <StatusBar
                     barStyle='light-content'
                     translucent
                     backgroundColor='transparent'
-                />
+                /> */}
                 <BackButton
                     onPress={handleBack}
                     color={theme.colors.shape} />

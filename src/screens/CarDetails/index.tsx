@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, } from "@react-navigation/native";
 
 
 import { Accessory } from '../../components/Accessory';
@@ -8,7 +8,6 @@ import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 
 import { getAccessoryIcon } from '../../utils/getAccessoryIcon';
-
 
 import {
   Container,
@@ -37,13 +36,14 @@ interface Params {
 
 export function CarDetails() {
 
-  const navigation = useNavigation();
-
+  // const navigation = useNavigation();
+  
   const route = useRoute();
   const { car } = route.params as Params
-
+  const navigation = useNavigation();
+  
   function handleConfirmRental() {
-    // navigation.navigate('Scheduling', { car });
+    navigation.navigate('Scheduling', { car });
   }
 
   function handleBack() {
@@ -52,6 +52,10 @@ export function CarDetails() {
 
   return (
     <Container>
+      {/* <StatusBar
+        barStyle="light-content"
+        translucent
+      /> */}
       <Header>
         <BackButton onPress={handleBack} />
       </Header>
