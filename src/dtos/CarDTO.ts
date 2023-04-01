@@ -3,8 +3,10 @@ export interface CarDTO {
     brand: string;
     name: string;
     about: string;
-    period: string;
-    price: number;
+    rent: {
+      period: string;
+      price: number;
+    }
     fuel_type: string;
     thumbnail: string;
     accessories: {
@@ -13,8 +15,8 @@ export interface CarDTO {
       name: string;
     }[];
 
-    photos: {
+    photos?: {
       id: string;
       photo: string;
-    }[];
+    }[] | any;
 }

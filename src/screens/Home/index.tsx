@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
+// import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { RFValue } from "react-native-responsive-fontsize";
-import api from "../../services/api";
+import { useNavigation } from "@react-navigation/native";
 import { useTheme } from 'styled-components';
 import { Ionicons } from '@expo/vector-icons';
+// import {CarDetails} from '../CarDetails'
+import api from "../../services/api";
 import { Car } from "../../components/Car";
-
+import Logo from '../../assets/logo.svg';
 import { CarDTO } from "../../dtos/CarDTO";
+
+
+// import { PropsStack } from '../../routes/app.stack.routes';
 
 import { ActivityIndicator, FlatList, View, Text } from 'react-native';
 type Car = {
@@ -23,25 +30,36 @@ import {
   MyCarsButton
 } from './styles';
 
-export default function Home() {
+export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [isLoading, setLoading] = useState(true);
 
-  function handleOpenMyCars() {
-    console.log("clicou")
-  }
+  const navigation = useNavigation();
 
   function handleCarDetails(car: CarDTO) {
-    console.log("car")
+    navigation.navigate('CarDetails', { car })
   }
 
-
+  function handleOpenMyCars() {
+    navigation.navigate('MyCars')
+  }
   const theme = useTheme();
   useEffect(() => {
     async function fetchCars() {
         try {
           const response = await api.get('/cars');
-          setCars(response.data);
+          var cars_update = response.data.map((car: CarDTO) => {
+            var new_car = car.photos?.map((photo, i) => {
+              return {
+                "photo": photo,
+                "id":  String(i+1)
+              }
+            }) 
+            car.photos = [...new_car];
+            return car
+          })
+
+          setCars(cars_update);
         } catch (error) {
           console.error(error);
         } finally {
@@ -55,7 +73,7 @@ export default function Home() {
     <Container>
       <Header>
         <HeaderContent>
-          {/* <Logo width={108} height={12} /> */}
+          <Logo width={RFValue(108)} height={RFValue(12)} />
           <TotalCars>
             Total de 12 carros
           </TotalCars>
@@ -80,47 +98,6 @@ export default function Home() {
       </MyCarsButton>
     </Container>
   );
-
-  // return ( 
-  //   <View style={{
-  //     flex: 1,
-  //     flexDirection: 'row',
-  //     alignItems: 'center', justifyContent: "center"
-  //      }}>
-  //     <StatusBar
-  //       // barStyle="light-content"
-  //       // backgroundColor='transparent'
-  //       translucent
-  //     />
-  //     {isLoading ? (
-  //       <ActivityIndicator />
-  //     ) : (
-  //       <FlatList
-  //         style={{
-  //           flexDirection: 'column',
-  //           // alignSelf: 'center', 
-  //           width: 150,
-  //           backgroundColor: "red",
-    
-  //         }}
-  //         data={cars}
-  //         keyExtractor={item => item.id}
-  //         renderItem={({item}) =>
-  //         (
-  //           <Text style={{
-  //             flexDirection: 'row',
-  //             alignSelf: 'center', 
-  //             justifyContent: 'center',
-  //             backgroundColor: "blue",
-  //             // fontSize: 19
-  //            }}>
-  //             {item.name},  {item.brand}
-  //           </Text>
-  //         )}
-  //       />
-  //       )}
-  //   </View>
-  // );
 }
 
 

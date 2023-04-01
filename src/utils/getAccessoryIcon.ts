@@ -1,4 +1,3 @@
- 
 import SpeedSvg from '../assets/speed.svg';
 import AccelerationSvg from '../assets/acceleration.svg';
 import ForceSvg from '../assets/force.svg';

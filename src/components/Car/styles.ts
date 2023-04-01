@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-
+// import { Pressable } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { RectButton } from "react-native-gesture-handler";
 

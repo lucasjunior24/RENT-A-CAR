@@ -37,10 +37,18 @@
           "name": "5 pessoas"
         }
       ],
-      "photos": [
-        "https://storage.googleapis.com/golden-wind/ignite/react-native/images/1.png",
-        "https://storage.googleapis.com/golden-wind/ignite/react-native/images/2.png",
-        "https://storage.googleapis.com/golden-wind/ignite/react-native/images/3.png"
+      "photos": [{
+        "id": 1,
+        "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/1.png"
+      },
+      {
+        "id": 2,
+        "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/2.png"
+      },
+      {
+        "id": 3,
+        "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/3.png"
+      }
       ]
     },
     {
@@ -81,8 +89,14 @@
         }
       ],
       "photos": [
-        "https://storage.googleapis.com/golden-wind/ignite/react-native/images/4.png",
-        "https://storage.googleapis.com/golden-wind/ignite/react-native/images/5.png"
+        {
+          "id": 1,
+          "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/4.png"
+        },
+        {
+          "id": 2,
+          "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/5.png"
+        }
       ]
     },
     {
@@ -123,10 +137,18 @@
         }
       ],
       "photos": [
-          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/6.png",
-          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/7.png",
-          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/8.png"
-
+        {
+          "id": 1,
+          "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/6.png"
+        },
+        {
+          "id": 2,
+          "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/7.png"
+        },
+        {
+          "id": 3,
+          "photo": "https://storage.googleapis.com/golden-wind/ignite/react-native/images/8.png"
+        }
       ]
     },
     {

@@ -1,6 +1,7 @@
-import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native';
 
-import 'react-native-gesture-handler';
 import { ActivityIndicator, StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 
@@ -19,7 +20,8 @@ import {
 
 import theme from './src/styles/theme';
 import { MyStack } from './routes';
-import Home from './src/screens/Home';
+import {Home} from './src/screens/Home';
+import { AppStackRoutes} from './src/routes/app.stack.routes';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -34,12 +36,17 @@ export default function App() {
     return <ActivityIndicator />
   }
   return (
+   <GestureHandlerRootView style={{ flex: 1 }}>
     <ThemeProvider theme={theme}>
         <StatusBar
           barStyle="light-content"
           translucent
         />
-       <Home/>
+       <NavigationContainer>
+        <AppStackRoutes />
+      </NavigationContainer>
     </ThemeProvider>
+
+   </GestureHandlerRootView>
   )
 }
