@@ -2,12 +2,13 @@ import React, {
   useState,
   createContext,
   useContext,
+  useEffect,
   ReactNode
 } from 'react';
 
 import api from '../services/api';
 import { UserDTO } from '../dtos/UserDTO';
-import { storageUserSave } from '../storage/storageUser';
+import { storageUserSave, storageUserGet, storageUserRemove } from '../storage/storageUser';
 
 
 interface AuthState {
@@ -23,7 +24,8 @@ export type AuthContextDataProps = {
   user: UserDTO;
   // setUser: (user: UserDTO) => void
   signIn: (credentials: SignInCredential) => Promise<void>; 
-  // signOut: () => void;
+  isLoad: boolean;
+  signOut: () => Promise<void>;
 }
 
 interface AuthContextProviderProps { 
@@ -34,12 +36,7 @@ export const AuthContext = createContext<AuthContextDataProps>({} as AuthContext
 
 export function AuthContextProvider({ children } : AuthContextProviderProps) {
   const [user, setUser] = useState<UserDTO>({} as UserDTO);
-
-  return (
-    <AuthContext.Provider value={{ user, signIn }}>
-      {children}
-    </AuthContext.Provider>
-  )
+  const [isLoad, setIsLoad] = useState(true);
 
   async function signIn({ email, password} : SignInCredential) {
       const response = await api.post('/sessions', {
@@ -48,37 +45,57 @@ export function AuthContextProvider({ children } : AuthContextProviderProps) {
       });
         
       const { token, user } = response.data;
-      console.log(token)
       
       api.defaults.headers.authorization = `Bearer ${token}`;
       
       setUser(user);
-      storageUserSave(user)
+      await storageUserSave(user)
   }
 
-  // function signOut() {
-  //   setData({} as AuthState);
-  // }
+  async function signOut() {
+    try {
+      setIsLoad(true)
+      setUser({} as UserDTO)
+      await storageUserRemove()
+    }
+    catch (error) {
+      throw error;
+    }
+    finally {
+      setIsLoad(false)
+    }
+  }
 
-  // async function UpdatedUser(user: UserDTO) {
-    
-  // }
+  async function loadUserData() {
+    try {
+      const userLogged = await storageUserGet()
 
-  // return (
-  //   <AuthContext.Provider 
-  //     value={{
-  //       user: data.user,
-  //       signIn,
-  //       signOut
-  //     }}
-  //   >
-  //     {children}
-  //   </ AuthContext.Provider>
-  // )
-}
+      if(userLogged) {
+        console.log(userLogged)
+        setUser(userLogged)
+      }
+    }
+    catch (error) {
+      throw error;
+    }
+    finally {
+      setIsLoad(false)
+    }
+  }
 
-function useAuth() : AuthContextDataProps {
-  const context = useContext(AuthContext);
-  return context;
+  useEffect(() => {
+    loadUserData()
+  }, [])
+
+  return (
+    <AuthContext.Provider value={{ 
+      user, 
+      signIn ,
+      isLoad,
+      signOut
+    }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 

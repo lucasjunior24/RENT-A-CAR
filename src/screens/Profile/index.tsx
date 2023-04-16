@@ -18,7 +18,7 @@ import { BackButton } from '../../components/BackButton';
 import { Input } from '../../components/Input';
 import { Button } from '../../components/Button';
 import { PasswordInput } from '../../components/PasswordInput';
-// import { useAuth } from '../../hooks/auth';
+import { useAuth } from '../../hooks/useAuth';
 
 import {
   Container,
@@ -37,12 +37,12 @@ import {
 } from './styles';
 
 export function Profile() {
-  // const { user, signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   const [option, setOption] = useState<'dataEdit' | 'passwordEdit'>('dataEdit');
-  // const [avatar, setAvatar] = useState(user.avatar);
-  // const [name, setName] = useState(user.name);
-  // const [driverLicense, setDriverLicense] = useState(user.driver_license);
+  const [avatar, setAvatar] = useState('https://avatars.githubusercontent.com/u/53240060?v=4');
+  const [name, setName] = useState(user.name);
+  const [driverLicense, setDriverLicense] = useState(user.driver_license);
 
   const theme = useTheme();
   const navigation = useNavigation();
@@ -63,7 +63,7 @@ export function Profile() {
       quality: 1,
     });
 
-    if(result.cancelled) return;
+    // if(result.cancelled) return;
     // if(result.uri) setAvatar(result.uri);
   }
 
@@ -118,7 +118,7 @@ export function Profile() {
         },
         {
           text: "Sair",
-          // onPress: () => signOut()
+          onPress: () => signOut()
         }
       ]
     );
@@ -144,7 +144,7 @@ export function Profile() {
             </HeaderTop>
 
             <PhotoContainer>
-              {/* { !!avatar && <Photo source={{ uri: avatar }} /> } */}
+              { !!avatar && <Photo source={{ uri: avatar }} /> }
               <PhotoButton onPress={handleAvatarSelect}>
                 <Feather
                   name="camera"
