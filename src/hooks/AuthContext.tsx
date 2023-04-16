@@ -2,26 +2,27 @@ import React, {
   useState,
   createContext,
   useContext,
-  ReactNode,
-  useEffect
+  ReactNode
 } from 'react';
 
 import api from '../services/api';
 import { UserDTO } from '../dtos/UserDTO';
+import { storageUserSave } from '../storage/storageUser';
 
 
 interface AuthState {
   token: string;
   user: UserDTO;
 }
-interface SignInCredentials {
+interface SignInCredential {
   email: string;
   password: string;
 }
 
 export type AuthContextDataProps = { 
   user: UserDTO;
-  // signIn: (credentials: SignInCredentials) => Promise<void>; 
+  // setUser: (user: UserDTO) => void
+  signIn: (credentials: SignInCredential) => Promise<void>; 
   // signOut: () => void;
 }
 
@@ -32,34 +33,28 @@ interface AuthContextProviderProps {
 export const AuthContext = createContext<AuthContextDataProps>({} as AuthContextDataProps);
 
 export function AuthContextProvider({ children } : AuthContextProviderProps) {
-  return (
-    <AuthContext.Provider value={{
-      user: {
-        id: '1',
-        name: 'Lucas',
-        email: "",
-        driver_license: "",
-        token: ''
-      }
-    }}>
+  const [user, setUser] = useState<UserDTO>({} as UserDTO);
 
+  return (
+    <AuthContext.Provider value={{ user, signIn }}>
       {children}
     </AuthContext.Provider>
   )
-  // const [data, setData] = useState<AuthState>({} as AuthState);
 
-  // async function signIn({ email, password} : SignInCredentials) {
-  //     const response = await api.post('/sessions', {
-  //       email,
-  //       password
-  //     });
+  async function signIn({ email, password} : SignInCredential) {
+      const response = await api.post('/sessions', {
+        email,
+        password
+      });
         
-  //     const { token, user } = response.data;
+      const { token, user } = response.data;
+      console.log(token)
       
-  //     api.defaults.headers.authorization = `Bearer ${token}`;
-
-  //     setData({ token, user });
-  // }
+      api.defaults.headers.authorization = `Bearer ${token}`;
+      
+      setUser(user);
+      storageUserSave(user)
+  }
 
   // function signOut() {
   //   setData({} as AuthState);

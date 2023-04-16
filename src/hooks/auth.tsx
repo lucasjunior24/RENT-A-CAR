@@ -7,19 +7,12 @@ import React, {
 } from 'react';
 
 import api from '../services/api';
+import { UserDTO } from '../dtos/UserDTO';
 
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  driver_license: string;
-  avatar: string;
-  token: string;
-}
 
 interface AuthState {
   token: string;
-  user: User;
+  user: UserDTO;
 }
 interface SignInCredentials {
   email: string;
@@ -27,7 +20,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData { 
-  user: User;
+  user: UserDTO;
   signIn: (credentials: SignInCredentials) => Promise<void>; 
   signOut: () => void;
 }
@@ -58,7 +51,7 @@ function AuthProvider({ children } : AuthProviderProps) {
     setData({} as AuthState);
   }
 
-  async function UpdatedUser(user: User) {
+  async function UpdatedUser(user: UserDTO) {
     
 }
 

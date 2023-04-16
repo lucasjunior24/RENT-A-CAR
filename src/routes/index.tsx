@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 // import { useAuth } from '../hooks/auth';
 
@@ -9,10 +9,9 @@ import { useAuth } from '../hooks/useAuth';
 export function Routes() {
   const { user } = useAuth();
 
-  console.log("user: ", user)
   return (
     <NavigationContainer independent={true}>
-       { user ? <AppTabRoutes /> : <AuthRoutes /> }
+       { user.id ? <AppTabRoutes /> : <AuthRoutes /> }
     </NavigationContainer>
   )
 }
