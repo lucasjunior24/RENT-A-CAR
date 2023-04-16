@@ -62,7 +62,7 @@ export function SchedulingDetails() {
   const route = useRoute();
   const { car, dates } = route.params as Params;
 
-  const rentalTotal = Number(dates.length * car.rent.price);
+  const rentalTotal = Number(dates.length * car.price);
 
   function handleBack() {
     navigation.goBack();
@@ -71,9 +71,9 @@ export function SchedulingDetails() {
   async function handleConfirmRental() {
     setLoading(true);
 
-    api.post(`/rentals`, {
+    const result = api.post(`/rentals`, {
       user_id: 1,
-      car: car,
+      car_id: car.id,
       start_date: new Date(dates[0]),
       end_date: new Date(dates[dates.length - 1]),
       total: rentalTotal
@@ -85,7 +85,8 @@ export function SchedulingDetails() {
           nextScreenRoute: 'Home'
         })
       })
-      .catch(() => {
+      .catch((e: any) => {
+        console.log(e)
         setLoading(false);
         Alert.alert('Não foi possivel confirmar o agendamento.');
       });
@@ -118,8 +119,8 @@ export function SchedulingDetails() {
           </Description>
 
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Price>R$ {car.rent.price}</Price>
+            <Period>{car.period}</Period>
+            <Price>R$ {car.price}</Price>
           </Rent>
         </Details>
 
@@ -163,7 +164,7 @@ export function SchedulingDetails() {
         <RentalPrice>
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
           <RentalPriceDetails>
-            <RentalPriceQuota>{`RS ${car.rent.price}x${dates.length} diárias`}</RentalPriceQuota>
+            <RentalPriceQuota>{`RS ${car.price}x${dates.length} diárias`}</RentalPriceQuota>
             <RentalPriceTotal>RS {rentalTotal}</RentalPriceTotal>
           </RentalPriceDetails>
         </RentalPrice>

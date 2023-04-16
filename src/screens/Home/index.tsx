@@ -48,18 +48,18 @@ export function Home() {
     async function fetchCars() {
         try {
           const response = await api.get('/cars');
-          var cars_update = response.data.map((car: CarDTO) => {
-            var new_car = car.photos?.map((photo, i) => {
-              return {
-                "photo": photo,
-                "id":  String(i+1)
-              }
-            }) 
-            car.photos = [...new_car];
-            return car
-          })
+          // var cars_update = response.data.map((car: CarDTO) => {
+          //   var new_car = car.photos?.map((photo, i) => {
+          //     return {
+          //       "photo": photo,
+          //       "id":  String(i+1)
+          //     }
+          //   }) 
+          //   car.photos = [...new_car];
+          //   return car
+          // })
 
-          setCars(cars_update);
+          setCars(response.data);
         } catch (error) {
           console.error(error);
         } finally {

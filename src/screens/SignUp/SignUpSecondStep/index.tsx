@@ -41,14 +41,15 @@ export function SignUpSecondStep() {
   const route = useRoute();
   const theme = useTheme();
 
-  // const { user } = route.params as Params;
+  const { user } = route.params as Params;
+  console.log(user)
 
   const handleBack = () => {
     navigation.goBack();
   }
-  const handleHome = () => {
-    navigation.navigate('Home');
-  }
+  // const handleHome = () => {
+  //   navigation.navigate('Home');
+  // }
 
   async function handleRegister() {
     if(!password || !passwordConfirm) {
@@ -58,23 +59,23 @@ export function SignUpSecondStep() {
       return Alert.alert('As senhas não são iguais');
     }
 
-    // await api.post('/users', {
-    //   name: user.name,
-    //   email: user.email,
-    //   driver_license: user.driverLicense,
-    //   password
-    // })
-    // .then(() => {
-    //   navigation.navigate('Confirmation', {
-    //     nextScreenRoute: 'SignIn',
-    //     title: 'Conta Criada',
-    //     message: `Agora é só fazer login\ne aproveitar`
-    //   });
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    //   Alert.alert('Opa', 'Não foi possivel cadastrar');
-    // });
+    await api.post('/users', {
+      name: user.name,
+      email: user.email,
+      driver_license: user.driverLicense,
+      password
+    })
+    .then(() => {
+      navigation.navigate('Confirmation', {
+        nextScreenRoute: 'SignIn',
+        title: 'Conta Criada',
+        message: `Agora é só fazer login\ne aproveitar`
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      Alert.alert('Opa', 'Não foi possivel cadastrar');
+    });
 
   }
   return (
@@ -115,7 +116,7 @@ export function SignUpSecondStep() {
 
           <Button 
             title='Cadastrar'
-            onPress={handleHome}
+            onPress={handleRegister}
             color={theme.colors.sucess}
             />
         </Container>

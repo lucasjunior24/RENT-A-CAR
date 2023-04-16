@@ -11,7 +11,12 @@ const { Screen, Navigator } = createNativeStackNavigator();
 
 export function AuthRoutes() {
   return (
-    <Navigator initialRouteName='Splash' >
+    <Navigator 
+      initialRouteName='Splash' 
+      screenOptions={{
+        headerShown: false
+      }} 
+    >
       <Screen
         name='Splash'
         component={Splash}

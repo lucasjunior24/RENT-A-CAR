@@ -20,10 +20,7 @@ import {
 
 import theme from './src/styles/theme';
 import { Routes } from './src/routes/index';
-import { Profile } from './src/screens/Profile/index';
-import { MyStack } from './routes';
-import {Home} from './src/screens/Home';
-import { AppStackRoutes} from './src/routes/app.stack.routes';
+import { AuthContextProvider } from './src/hooks/AuthContext'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -45,7 +42,9 @@ export default function App() {
           translucent
         />
        <NavigationContainer>
-        <Routes />
+        <AuthContextProvider>
+          <Routes />
+        </AuthContextProvider>
       </NavigationContainer>
     </ThemeProvider>
 
