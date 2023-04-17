@@ -42,14 +42,10 @@ export function SignUpSecondStep() {
   const theme = useTheme();
 
   const { user } = route.params as Params;
-  console.log(user)
-
+  
   const handleBack = () => {
     navigation.goBack();
   }
-  // const handleHome = () => {
-  //   navigation.navigate('Home');
-  // }
 
   async function handleRegister() {
     if(!password || !passwordConfirm) {
@@ -76,8 +72,8 @@ export function SignUpSecondStep() {
       console.log(error);
       Alert.alert('Opa', 'Não foi possivel cadastrar');
     });
-
   }
+
   return (
     <KeyboardAvoidingView behavior='position' enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

@@ -1,7 +1,6 @@
 import React, {
   useState,
   createContext,
-  useContext,
   useEffect,
   ReactNode
 } from 'react';
@@ -39,12 +38,14 @@ export function AuthContextProvider({ children } : AuthContextProviderProps) {
   const [isLoad, setIsLoad] = useState(true);
 
   async function signIn({ email, password} : SignInCredential) {
+      console.log(email, password)
       const response = await api.post('/sessions', {
         email,
         password
       });
         
       const { token, user } = response.data;
+      console.log(user)
       
       api.defaults.headers.authorization = `Bearer ${token}`;
       
@@ -90,7 +91,7 @@ export function AuthContextProvider({ children } : AuthContextProviderProps) {
   return (
     <AuthContext.Provider value={{ 
       user, 
-      signIn ,
+      signIn,
       isLoad,
       signOut
     }}>
