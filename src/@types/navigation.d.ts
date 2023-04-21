@@ -1,3 +1,5 @@
+import { UserDTO } from "../dtos/UserDTO";
+
 export declare global {
     namespace ReactNavigation {
         interface RootParamList {
@@ -10,7 +12,7 @@ export declare global {
             SchedulingDetails: { car: CarDTO, dates: any };
             MyCars: undefined;
             Confirmation: { title: string, message: string, nextScreenRoute: string};
-            SignUpSecondStep: undefined;
+            SignUpSecondStep:  { name: string, email: string, driverLicense: string }
             SignUpFirstStep: undefined;
             SignIn: undefined;
         }

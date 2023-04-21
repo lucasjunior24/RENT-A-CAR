@@ -23,7 +23,7 @@ import {
   Form,
   FormTitle
 } from './styles';
-import { useAuth } from '../../../hooks/auth';
+import { useAuth } from '../../../hooks/useAuth';
 
 export function SignUpFirstStep() {
   const [name, setName] = useState('');
@@ -51,7 +51,11 @@ export function SignUpFirstStep() {
       const data = { name, email, driverLicense }
       await schema.validate(data);
 
-      navigation.navigate('SignUpSecondStep', { user: data });
+      navigation.navigate('SignUpSecondStep', { 
+        name,
+        email,
+        driverLicense
+      });
     } catch (error) {
       if(error instanceof Yup.ValidationError) {
         return Alert.alert('Opa', error.message);
@@ -60,7 +64,7 @@ export function SignUpFirstStep() {
   }
   return (
     <KeyboardAvoidingView behavior='position' enabled>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.}> */}
         <Container>
           <Header>
             <BackButton onPress={handleBack} />
@@ -107,7 +111,7 @@ export function SignUpFirstStep() {
             onPress={handleNextStep}
           />
         </Container>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   )
 }

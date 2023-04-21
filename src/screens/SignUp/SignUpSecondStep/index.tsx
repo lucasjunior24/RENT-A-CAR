@@ -26,11 +26,11 @@ import {
 } from './styles';
 
 interface Params {
-  user: {
+
     name: string;
     email: string;
     driverLicense: string;
-  }
+
 }
 
 export function SignUpSecondStep() {
@@ -41,7 +41,8 @@ export function SignUpSecondStep() {
   const route = useRoute();
   const theme = useTheme();
 
-  const { user } = route.params as Params;
+  const { name, email, driverLicense } = route.params as Params;
+  console.log(name)
   
   const handleBack = () => {
     navigation.goBack();
@@ -54,11 +55,13 @@ export function SignUpSecondStep() {
     if(password != passwordConfirm) {
       return Alert.alert('As senhas não são iguais');
     }
-
+    console.log("-------------------------------------")
+    console.log(email)
+    console.log(name)
     await api.post('/users', {
-      name: user.name,
-      email: user.email,
-      driver_license: user.driverLicense,
+      email: email,
+      name: name,
+      driver_license: driverLicense,
       password
     })
     .then(() => {
@@ -76,7 +79,7 @@ export function SignUpSecondStep() {
 
   return (
     <KeyboardAvoidingView behavior='position' enabled>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
         <Container>
           <Header>
             <BackButton onPress={handleBack} />
@@ -116,7 +119,7 @@ export function SignUpSecondStep() {
             color={theme.colors.sucess}
             />
         </Container>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   )
 }

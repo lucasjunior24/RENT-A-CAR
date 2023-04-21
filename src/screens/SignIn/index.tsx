@@ -63,7 +63,7 @@ export function SignIn() {
   
   return (
     <KeyboardAvoidingView behavior='position' enabled >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
         <Container>
           <StatusBar 
             barStyle='dark-content'
@@ -119,7 +119,7 @@ export function SignIn() {
           </Footer>
 
         </Container>
-      </TouchableWithoutFeedback>
+      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   );
 }
